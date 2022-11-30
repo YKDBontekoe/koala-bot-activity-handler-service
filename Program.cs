@@ -1,4 +1,6 @@
 ﻿using Koala.ActivityHandlerService.Options;
+using Koala.ActivityHandlerService.Services;
+using Koala.ActivityHandlerService.Services.Interfaces;
 using Microsoft.Extensions.Azure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,7 +30,8 @@ internal static class Program
             {
                 ConfigureOptions(services, hostContext.Configuration);
                 ConfigureServiceBus(services);
-                
+
+                services.AddTransient<IMessageHandler, MessageHandler>();
                 services.AddHostedService<ActivityHandlerWorker>();
             })
             .UseConsoleLifetime()

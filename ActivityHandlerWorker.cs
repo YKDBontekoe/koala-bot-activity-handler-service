@@ -1,16 +1,25 @@
-﻿using Microsoft.Extensions.Hosting;
+﻿using Koala.ActivityHandlerService.Services.Interfaces;
+using Microsoft.Extensions.Hosting;
 
 namespace Koala.ActivityHandlerService;
 
 public class ActivityHandlerWorker : IHostedService
 {
-    public Task StartAsync(CancellationToken cancellationToken)
+    private readonly IMessageHandler _messageHandler;
+
+    public ActivityHandlerWorker(IMessageHandler messageHandler)
     {
-        throw new NotImplementedException();
+        _messageHandler = messageHandler;
     }
 
-    public Task StopAsync(CancellationToken cancellationToken)
+    public async Task StartAsync(CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        await _messageHandler.InitializeAsync();
+    }
+
+    public async Task StopAsync(CancellationToken cancellationToken)
+    {
+        await _messageHandler.DisposeAsync()!;
+        await _messageHandler.CloseQueueAsync()!;
     }
 }
