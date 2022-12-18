@@ -23,8 +23,8 @@ spec:
             image: ykdbonteregistry.azurecr.io/koala-activity-handler-service:v1
             resources:
               requests:
-                cpu: 100m
-                memory: 128Mi
+                cpu: 500m
+                memory: 256Mi
               limits:
                 cpu: 1000m
                 memory: 500Mi
