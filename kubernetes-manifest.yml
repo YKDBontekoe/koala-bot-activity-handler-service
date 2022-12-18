@@ -20,7 +20,7 @@ spec:
           restartPolicy: Always
           containers:
           - name: koala-activity-handler-service
-            image: ykdbonteregistry.azurecr.io/koala-activity-handler-service
+            image: ykdbonteregistry.azurecr.io/koala-activity-handler-service:v1
             resources:
               requests:
                 cpu: 500m
