@@ -1,4 +1,6 @@
 ﻿using Koala.ActivityHandlerService.Options;
+using Koala.ActivityHandlerService.Repositories;
+using Koala.ActivityHandlerService.Repositories.Interfaces;
 using Koala.ActivityHandlerService.Services;
 using Koala.ActivityHandlerService.Services.Interfaces;
 using Microsoft.Extensions.Azure;
@@ -6,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
+using SpotifyAPI.Web;
 
 namespace Koala.ActivityHandlerService;
 
@@ -30,7 +33,10 @@ internal static class Program
             {
                 ConfigureOptions(services, hostContext.Configuration);
                 ConfigureServiceBus(services);
+                ConfigureSpotifyClient(services);
 
+                services.AddTransient<ISpotifyRepository, HttpSpotifyRepository>();
+                services.AddTransient<ISpotifyService, SpotifyService>();
                 services.AddTransient<IMessageHandler, MessageHandler>();
                 services.AddHostedService<ActivityHandlerWorker>();
             })
@@ -45,6 +51,18 @@ internal static class Program
     {
         services.AddOptions();
         services.Configure<ServiceBusOptions>(configuration.GetSection(ServiceBusOptions.ServiceBus));
+        services.Configure<SpotifyOptions>(configuration.GetSection(SpotifyOptions.Spotify));
+    }
+    
+    // Configure the spotify client with the token
+    private static void ConfigureSpotifyClient(IServiceCollection services)
+    {
+        var serviceProvider = services.BuildServiceProvider();
+        var spotifyOptions = serviceProvider.GetService<IOptions<SpotifyOptions>>()?.Value;
+        
+        ArgumentNullException.ThrowIfNull(spotifyOptions);
+        var spotifyClient = new SpotifyClient(spotifyOptions.ClientSecret);
+        services.AddSingleton(spotifyClient);
     }
 
     // Configure the Azure Service Bus client with the connection string

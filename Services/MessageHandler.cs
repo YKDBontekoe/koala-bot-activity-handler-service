@@ -1,4 +1,8 @@
-﻿using Azure.Messaging.ServiceBus;
+﻿using System.Diagnostics;
+using System.Text.Json.Nodes;
+using Azure.Messaging.ServiceBus;
+using Koala.ActivityHandlerService.Models.Incoming;
+using Koala.ActivityHandlerService.Models.Outgoing;
 using Koala.ActivityHandlerService.Options;
 using Koala.ActivityHandlerService.Services.Interfaces;
 using Microsoft.Extensions.Options;
@@ -10,11 +14,13 @@ public class MessageHandler : IMessageHandler
 {
     private readonly ServiceBusClient _serviceBusClient;
     private readonly ServiceBusOptions _serviceBusOptions;
+    private readonly ISpotifyService _spotifyService;
     private ServiceBusProcessor? _processor;
 
-    public MessageHandler(ServiceBusClient serviceBusClient, IOptions<ServiceBusOptions> serviceBusOptions)
+    public MessageHandler(ServiceBusClient serviceBusClient, IOptions<ServiceBusOptions> serviceBusOptions, ISpotifyService spotifyService)
     {
         _serviceBusClient = serviceBusClient;
+        _spotifyService = spotifyService;
         _serviceBusOptions = serviceBusOptions != null ? serviceBusOptions.Value : throw new ArgumentNullException(nameof(serviceBusOptions));
     }
 
@@ -58,9 +64,30 @@ public class MessageHandler : IMessageHandler
         var body = args.Message.Body.ToString();
         
         // Implement logic to process the activity
-
         var sender = _serviceBusClient.CreateSender(_serviceBusOptions.ConsumerQueueName);
-        await sender.SendMessageAsync(new ServiceBusMessage(body));
+        
+        var activity = JsonConvert.DeserializeObject<ActivityIncoming>(body);
+        var activityOutgoing = new ActivityOutgoing();
+        
+        if (activity.SpotifyInfo != null)
+        {
+            var spotifyOutgoing = await _spotifyService.GetSpotifyInfoAsync(activity.SpotifyInfo.TrackId);
+
+            activityOutgoing = new ActivityOutgoing
+            {
+                SpotifyInfo = spotifyOutgoing,
+                Details = activity.Details,
+                Name = activity.Name,
+                Type = activity.Type,
+                User = activity.User,
+                StartedAt = activity.StartedAt
+            };
+            await sender.SendMessageAsync(new ServiceBusMessage(JsonConvert.SerializeObject(activityOutgoing)));
+        }
+        else
+        {
+            await sender.SendMessageAsync(new ServiceBusMessage(body));
+        }
     }
     
     private Task ErrorHandler(ProcessErrorEventArgs args)
