@@ -36,11 +36,11 @@ internal static class Program
         await host.RunAsync();
     }
 
-    private static async void ConfigureDelegate(HostBuilderContext hostContext, IServiceCollection services)
+    private static void ConfigureDelegate(HostBuilderContext hostContext, IServiceCollection services)
     {
         ConfigureOptions(services, hostContext.Configuration);
         ConfigureServiceBus(services);
-        await ConfigureSpotifyClient(services);
+        ConfigureSpotifyClient(services);
 
         services.AddTransient<ISpotifyRepository, HttpSpotifyRepository>();
         services.AddTransient<ISpotifyService, SpotifyService>();
@@ -57,7 +57,7 @@ internal static class Program
     }
     
     // Configure the spotify client with the token
-    private static async Task ConfigureSpotifyClient(IServiceCollection services)
+    private static void ConfigureSpotifyClient(IServiceCollection services)
     {
         var serviceProvider = services.BuildServiceProvider();
         var spotifyOptions = serviceProvider.GetService<IOptions<SpotifyOptions>>()?.Value;
@@ -65,8 +65,16 @@ internal static class Program
         ArgumentNullException.ThrowIfNull(spotifyOptions);
         var config = SpotifyClientConfig.CreateDefault();
         var request = new ClientCredentialsRequest(spotifyOptions.ClientId, spotifyOptions.ClientSecret);
-        
-        var response = await new OAuthClient(config).RequestToken(request);
+
+        ClientCredentialsTokenResponse response;
+        try
+        {
+            response = new OAuthClient(config).RequestToken(request).Result;
+        } catch (Exception e)
+        {
+            throw new Exception("Could not get token from Spotify", e);
+        }
+
         var spotifyClient = new SpotifyClient(config.WithToken(response.AccessToken));
         services.AddSingleton(spotifyClient);
     }
