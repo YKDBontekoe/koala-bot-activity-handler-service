@@ -29,23 +29,25 @@ internal static class Program
                         .AddEnvironmentVariables();
                 }
             )
-            .ConfigureServices((hostContext, services) =>
-            {
-                ConfigureOptions(services, hostContext.Configuration);
-                ConfigureServiceBus(services);
-                ConfigureSpotifyClient(services);
-
-                services.AddTransient<ISpotifyRepository, HttpSpotifyRepository>();
-                services.AddTransient<ISpotifyService, SpotifyService>();
-                services.AddTransient<IMessageHandler, MessageHandler>();
-                services.AddHostedService<ActivityHandlerWorker>();
-            })
+            .ConfigureServices(ConfigureDelegate)
             .UseConsoleLifetime()
             .Build();
 
         await host.RunAsync();
     }
-    
+
+    private static async void ConfigureDelegate(HostBuilderContext hostContext, IServiceCollection services)
+    {
+        ConfigureOptions(services, hostContext.Configuration);
+        ConfigureServiceBus(services);
+        await ConfigureSpotifyClient(services);
+
+        services.AddTransient<ISpotifyRepository, HttpSpotifyRepository>();
+        services.AddTransient<ISpotifyService, SpotifyService>();
+        services.AddTransient<IMessageHandler, MessageHandler>();
+        services.AddHostedService<ActivityHandlerWorker>();
+    }
+
     // Configure options for the application to use in the services
     private static void ConfigureOptions(IServiceCollection services, IConfiguration configuration)
     {
@@ -55,13 +57,17 @@ internal static class Program
     }
     
     // Configure the spotify client with the token
-    private static void ConfigureSpotifyClient(IServiceCollection services)
+    private static async Task ConfigureSpotifyClient(IServiceCollection services)
     {
         var serviceProvider = services.BuildServiceProvider();
         var spotifyOptions = serviceProvider.GetService<IOptions<SpotifyOptions>>()?.Value;
         
         ArgumentNullException.ThrowIfNull(spotifyOptions);
-        var spotifyClient = new SpotifyClient(spotifyOptions.ClientSecret);
+        var config = SpotifyClientConfig.CreateDefault();
+        var request = new ClientCredentialsRequest(spotifyOptions.ClientId, spotifyOptions.ClientSecret);
+        
+        var response = await new OAuthClient(config).RequestToken(request);
+        var spotifyClient = new SpotifyClient(config.WithToken(response.AccessToken));
         services.AddSingleton(spotifyClient);
     }
 
