@@ -27,6 +27,7 @@ jobs:
                 files: 'appsettings.json'
               env:
                 ServiceBus.ConnectionString: ${{ secrets.SERVICE_BUS_CONNECTION_STRING }}
+                Spotify.ClientSecret: ${{ secrets.SPOTIFY_CLIENTSECRET }}
             - uses: azure/login@v1.4.3
               name: Azure login
               with:
