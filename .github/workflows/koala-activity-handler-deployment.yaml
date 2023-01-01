@@ -9,7 +9,7 @@ env:
     AZURE_CONTAINER_REGISTRY: ykdbonteregistry
     CLUSTER_NAME: koala-cluster
     CLUSTER_RESOURCE_GROUP: koala-group
-    CONTAINER_NAME: koala-music-handler-service
+    CONTAINER_NAME: koala-activity-music-handler-service
     DEPLOYMENT_MANIFEST_PATH: |
         ./kubernetes-manifest.yml
 jobs:
