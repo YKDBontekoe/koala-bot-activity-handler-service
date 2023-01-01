@@ -3,16 +3,16 @@ WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0-bullseye-slim AS build
 WORKDIR /src
-COPY ["Koala.Activity.Handler.Service.csproj", "./"]
-RUN dotnet restore "Koala.Activity.Handler.Service.csproj"
+COPY ["Koala.Activity.Handler.Music.Service.csproj", "./"]
+RUN dotnet restore "Koala.Activity.Music.Handler.Service.csproj"
 COPY . .
 WORKDIR "/src"
-RUN dotnet build "Koala.Activity.Handler.Service.csproj" -c Release -o /app/build
+RUN dotnet build "Koala.Activity.Music.Handler.Service.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Koala.Activity.Handler.Service.csproj" -c Release -o /app/publish
+RUN dotnet publish "Koala.Activity.Music.Handler.Service.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Koala.ActivityHandlerService.dll"]
+ENTRYPOINT ["dotnet", "Koala.ActivityMusicHandlerService.dll"]
