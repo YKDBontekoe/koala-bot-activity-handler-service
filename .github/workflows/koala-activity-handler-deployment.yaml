@@ -27,7 +27,8 @@ jobs:
         password: ${{ secrets.REGISTRY_PASSWORD }}
     - name: Build image
       run: |
-        docker build -t ${{ secrets.LOGIN_SERVER }}/koala-activity-music-handler-service:${{ github.sha }} .
+        docker build -t contoso.azurecr.io/koala-activity-music-handler-service:${{ github.sha }} .
+        docker tag contoso.azurecr.io/koala-activity-music-handler-service:${{ github.sha }} contoso.azurecr.io/koala-activity-music-handler-service:latest
     - name: Push image
       run: |
         docker push ${{ secrets.LOGIN_SERVER }}/koala-activity-music-handler-service:latest
