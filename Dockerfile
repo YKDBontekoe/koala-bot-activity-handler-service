@@ -3,7 +3,7 @@ WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0-bullseye-slim AS build
 WORKDIR /src
-COPY ["Koala.Activity.Music.Handler..Service.csproj", "./"]
+COPY ["Koala.Activity.Music.Handler.Service.csproj", "./"]
 RUN dotnet restore "Koala.Activity.Music.Handler.Service.csproj"
 COPY . .
 WORKDIR "/src"
