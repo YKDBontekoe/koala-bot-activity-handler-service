@@ -1,4 +1,4 @@
-﻿using Koala.ActivityHandlerService.Services.Interfaces;
+﻿using Koala.ActivityMusicHandlerService.Services.Interfaces;
 using Microsoft.Extensions.Hosting;
 
 namespace Koala.ActivityMusicHandlerService;

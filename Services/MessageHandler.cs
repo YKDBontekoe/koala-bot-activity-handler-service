@@ -1,14 +1,12 @@
-﻿using System.Diagnostics;
-using System.Text.Json.Nodes;
-using Azure.Messaging.ServiceBus;
-using Koala.ActivityHandlerService.Models.Incoming;
-using Koala.ActivityHandlerService.Models.Outgoing;
-using Koala.ActivityHandlerService.Options;
-using Koala.ActivityHandlerService.Services.Interfaces;
+﻿using Azure.Messaging.ServiceBus;
+using Koala.ActivityMusicHandlerService.Models.Incoming;
+using Koala.ActivityMusicHandlerService.Models.Outgoing;
+using Koala.ActivityMusicHandlerService.Options;
+using Koala.ActivityMusicHandlerService.Services.Interfaces;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
-namespace Koala.ActivityHandlerService.Services;
+namespace Koala.ActivityMusicHandlerService.Services;
 
 public class MessageHandler : IMessageHandler
 {

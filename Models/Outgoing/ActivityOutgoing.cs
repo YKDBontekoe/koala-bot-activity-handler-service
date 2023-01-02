@@ -1,4 +1,4 @@
-﻿namespace Koala.ActivityHandlerService.Models.Outgoing;
+﻿namespace Koala.ActivityMusicHandlerService.Models.Outgoing;
 
 public class ActivityOutgoing
 {

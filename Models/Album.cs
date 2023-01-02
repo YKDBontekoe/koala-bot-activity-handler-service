@@ -1,6 +1,4 @@
-﻿using SpotifyAPI.Web;
-
-namespace Koala.ActivityHandlerService.Models;
+﻿namespace Koala.ActivityMusicHandlerService.Models;
 
 public class Album
 {

@@ -1,6 +1,6 @@
-﻿using Koala.ActivityHandlerService.Models.Outgoing;
+﻿using Koala.ActivityMusicHandlerService.Models.Outgoing;
 
-namespace Koala.ActivityHandlerService.Services.Interfaces;
+namespace Koala.ActivityMusicHandlerService.Services.Interfaces;
 
 public interface ISpotifyService
 {

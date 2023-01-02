@@ -1,4 +1,4 @@
-﻿namespace Koala.ActivityHandlerService.Models.Incoming;
+﻿namespace Koala.ActivityMusicHandlerService.Models.Incoming;
 
 public class ActivityIncoming
 {

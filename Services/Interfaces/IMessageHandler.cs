@@ -1,4 +1,4 @@
-﻿namespace Koala.ActivityHandlerService.Services.Interfaces;
+﻿namespace Koala.ActivityMusicHandlerService.Services.Interfaces;
 
 public interface IMessageHandler
 {

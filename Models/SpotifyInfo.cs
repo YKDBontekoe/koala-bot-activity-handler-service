@@ -1,4 +1,4 @@
-﻿namespace Koala.ActivityPublisherService.Models;
+﻿namespace Koala.ActivityMusicHandlerService.Models;
 
 public class SpotifyInfo
 {

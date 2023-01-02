@@ -1,9 +1,8 @@
-﻿using Koala.ActivityHandlerService.Options;
-using Koala.ActivityHandlerService.Repositories;
-using Koala.ActivityHandlerService.Repositories.Interfaces;
-using Koala.ActivityHandlerService.Services;
-using Koala.ActivityHandlerService.Services.Interfaces;
-using Koala.ActivityMusicHandlerService;
+﻿using Koala.ActivityMusicHandlerService.Options;
+using Koala.ActivityMusicHandlerService.Repositories;
+using Koala.ActivityMusicHandlerService.Repositories.Interfaces;
+using Koala.ActivityMusicHandlerService.Services;
+using Koala.ActivityMusicHandlerService.Services.Interfaces;
 using Microsoft.Extensions.Azure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,7 +10,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using SpotifyAPI.Web;
 
-namespace Koala.ActivityHandlerService;
+namespace Koala.ActivityMusicHandlerService;
 
 internal static class Program
 {

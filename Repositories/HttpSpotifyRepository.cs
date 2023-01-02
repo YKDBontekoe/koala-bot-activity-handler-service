@@ -1,10 +1,10 @@
-﻿using Koala.ActivityHandlerService.Models;
-using Koala.ActivityHandlerService.Models.DTOs;
-using Koala.ActivityHandlerService.Repositories.Interfaces;
+﻿using Koala.ActivityMusicHandlerService.Models;
+using Koala.ActivityMusicHandlerService.Models.DTOs;
+using Koala.ActivityMusicHandlerService.Repositories.Interfaces;
 using SpotifyAPI.Web;
-using TrackAudioFeatures = Koala.ActivityHandlerService.Models.TrackAudioFeatures;
+using TrackAudioFeatures = Koala.ActivityMusicHandlerService.Models.TrackAudioFeatures;
 
-namespace Koala.ActivityHandlerService.Repositories;
+namespace Koala.ActivityMusicHandlerService.Repositories;
 
 public class HttpSpotifyRepository : ISpotifyRepository
 {

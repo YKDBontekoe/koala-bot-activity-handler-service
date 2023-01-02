@@ -1,4 +1,4 @@
-﻿namespace Koala.ActivityHandlerService.Options;
+﻿namespace Koala.ActivityMusicHandlerService.Options;
 
 public class ServiceBusOptions
 {

@@ -1,6 +1,4 @@
-﻿using Koala.ActivityPublisherService.Models;
-
-namespace Koala.ActivityHandlerService.Models;
+﻿namespace Koala.ActivityMusicHandlerService.Models;
 
 public class SpotifyActivity : Activity
 {

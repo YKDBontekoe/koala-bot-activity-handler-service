@@ -1,4 +1,4 @@
-﻿namespace Koala.ActivityHandlerService.Models.DTOs;
+﻿namespace Koala.ActivityMusicHandlerService.Models.DTOs;
 
 public class TrackDTO
 {

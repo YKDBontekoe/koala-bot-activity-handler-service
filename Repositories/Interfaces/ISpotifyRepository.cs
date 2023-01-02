@@ -1,7 +1,7 @@
-﻿using Koala.ActivityHandlerService.Models;
-using Koala.ActivityHandlerService.Models.DTOs;
+﻿using Koala.ActivityMusicHandlerService.Models;
+using Koala.ActivityMusicHandlerService.Models.DTOs;
 
-namespace Koala.ActivityHandlerService.Repositories.Interfaces;
+namespace Koala.ActivityMusicHandlerService.Repositories.Interfaces;
 
 public interface ISpotifyRepository
 {

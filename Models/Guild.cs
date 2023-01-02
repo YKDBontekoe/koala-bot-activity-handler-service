@@ -1,4 +1,4 @@
-﻿namespace Koala.ActivityHandlerService.Models;
+﻿namespace Koala.ActivityMusicHandlerService.Models;
 
 public sealed class Guild
 {

@@ -1,9 +1,9 @@
-﻿using Koala.ActivityHandlerService.Models;
-using Koala.ActivityHandlerService.Models.Outgoing;
-using Koala.ActivityHandlerService.Repositories.Interfaces;
-using Koala.ActivityHandlerService.Services.Interfaces;
+﻿using Koala.ActivityMusicHandlerService.Models;
+using Koala.ActivityMusicHandlerService.Models.Outgoing;
+using Koala.ActivityMusicHandlerService.Repositories.Interfaces;
+using Koala.ActivityMusicHandlerService.Services.Interfaces;
 
-namespace Koala.ActivityHandlerService.Services;
+namespace Koala.ActivityMusicHandlerService.Services;
 
 public class SpotifyService : ISpotifyService
 {
