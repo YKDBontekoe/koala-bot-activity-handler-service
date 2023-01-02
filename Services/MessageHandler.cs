@@ -26,7 +26,7 @@ public class MessageHandler : IMessageHandler
 
     public async Task InitializeAsync()
     {
-        _processor = _serviceBusClient.CreateProcessor(_serviceBusOptions.UserActivitiesQueueName, new ServiceBusProcessorOptions
+        _processor = _serviceBusClient.CreateProcessor(_serviceBusOptions.UserMusicQueueName, new ServiceBusProcessorOptions
         {
             AutoCompleteMessages = true,
             MaxAutoLockRenewalDuration = TimeSpan.FromMinutes(15),
