@@ -1,13 +1,13 @@
 ﻿using Koala.ActivityHandlerService.Services.Interfaces;
 using Microsoft.Extensions.Hosting;
 
-namespace Koala.ActivityHandlerService;
+namespace Koala.ActivityMusicHandlerService;
 
-public class ActivityHandlerWorker : IHostedService
+public class ActivityMusicHandlerWorker : IHostedService
 {
     private readonly IMessageHandler _messageHandler;
 
-    public ActivityHandlerWorker(IMessageHandler messageHandler)
+    public ActivityMusicHandlerWorker(IMessageHandler messageHandler)
     {
         _messageHandler = messageHandler;
     }

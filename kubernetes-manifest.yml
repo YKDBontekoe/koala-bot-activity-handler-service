@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: koala-music-handler-service
+  name: koala-activity-music-handler-service
 spec:
     replicas: 1
     strategy:
@@ -11,16 +11,16 @@ spec:
         maxUnavailable: 1
     selector:
         matchLabels:
-          app: koala-music-handler-service
+          app: koala-activity-music-handler-service
     template:
         metadata:
           labels:
-            app: koala-music-handler-service
+            app: koala-activity-music-handler-service
         spec:
           restartPolicy: Always
           containers:
-          - name: koala-music-handler-service
-            image: ykdbonteregistry.azurecr.io/koala-music-handler-service:latest
+          - name: koala-activity-music-handler-service
+            image: ykdbonteregistry.azurecr.io/koala-activity-music-handler-service:latest
             resources:
               limits:
                 cpu: 100m

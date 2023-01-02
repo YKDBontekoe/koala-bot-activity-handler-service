@@ -3,6 +3,7 @@ using Koala.ActivityHandlerService.Repositories;
 using Koala.ActivityHandlerService.Repositories.Interfaces;
 using Koala.ActivityHandlerService.Services;
 using Koala.ActivityHandlerService.Services.Interfaces;
+using Koala.ActivityMusicHandlerService;
 using Microsoft.Extensions.Azure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -45,7 +46,7 @@ internal static class Program
         services.AddTransient<ISpotifyRepository, HttpSpotifyRepository>();
         services.AddTransient<ISpotifyService, SpotifyService>();
         services.AddTransient<IMessageHandler, MessageHandler>();
-        services.AddHostedService<ActivityHandlerWorker>();
+        services.AddHostedService<ActivityMusicHandlerWorker>();
     }
 
     // Configure options for the application to use in the services
