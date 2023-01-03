@@ -63,20 +63,12 @@ internal static class Program
         var spotifyOptions = serviceProvider.GetService<IOptions<SpotifyOptions>>()?.Value;
         
         ArgumentNullException.ThrowIfNull(spotifyOptions);
-        var config = SpotifyClientConfig.CreateDefault();
-        var request = new ClientCredentialsRequest(spotifyOptions.ClientId, spotifyOptions.ClientSecret);
+        var config = SpotifyClientConfig
+            .CreateDefault()
+            .WithAuthenticator(new ClientCredentialsAuthenticator(spotifyOptions.ClientId, spotifyOptions.ClientSecret));
 
-        ClientCredentialsTokenResponse response;
-        try
-        {
-            response = new OAuthClient(config).RequestToken(request).Result;
-        } catch (Exception e)
-        {
-            throw new Exception("Could not get token from Spotify", e);
-        }
-
-        var spotifyClient = new SpotifyClient(config.WithToken(response.AccessToken));
-        services.AddSingleton(spotifyClient);
+        var spotify = new SpotifyClient(config);
+        services.AddSingleton(spotify);
     }
 
     // Configure the Azure Service Bus client with the connection string
